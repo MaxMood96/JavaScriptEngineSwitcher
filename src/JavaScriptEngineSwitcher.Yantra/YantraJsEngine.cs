@@ -21,13 +21,13 @@ using OriginalError = YantraJS.Core.JSError;
 using OriginalException = YantraJS.Core.JSException;
 using OriginalFunction = YantraJS.Core.JSFunction;
 using OriginalJsonObject = YantraJS.Core.JSJSON;
+using OriginalKeyString = YantraJS.Core.KeyString;
 using OriginalTypeConverter = YantraJS.Utils.TypeConverter;
 using OriginalUndefined = YantraJS.Core.JSUndefined;
 using OriginalValue = YantraJS.Core.JSValue;
 
 using JavaScriptEngineSwitcher.Core;
 using JavaScriptEngineSwitcher.Core.Constants;
-using JavaScriptEngineSwitcher.Core.Extensions;
 using JavaScriptEngineSwitcher.Core.Helpers;
 using JavaScriptEngineSwitcher.Core.Utilities;
 
@@ -54,7 +54,7 @@ namespace JavaScriptEngineSwitcher.Yantra
 		/// <summary>
 		/// Version of original JS engine
 		/// </summary>
-		private const string EngineVersion = "1.2.316";
+		private const string EngineVersion = "1.2.334";
 
 		/// <summary>
 		/// Regular expression for working with the error message
@@ -332,7 +332,7 @@ namespace JavaScriptEngineSwitcher.Yantra
 				string messageWithCallStack = type == JsErrorType.Syntax ?
 					originalException.JSStackTrace.AsStringOrDefault()
 					:
-					errorValue.Stack ?? errorValue["stack"].AsStringOrDefault()
+					errorValue.Stack ?? errorValue[OriginalKeyString.stack].AsStringOrDefault()
 					;
 				string rawCallStack = GetRawCallStack(message, messageWithType, messageWithCallStack);
 
@@ -483,13 +483,15 @@ namespace JavaScriptEngineSwitcher.Yantra
 		private OriginalValue InnerCallFunctionWithoutResultConversion(string functionName, params object[] args)
 		{
 			OriginalValue resultValue;
+			OriginalKeyString functionKeyName = functionName.ToKeyString();
 			OriginalValue[] processedArgs = MapToScriptType(args);
 
 			try
 			{
 				lock (_executionSynchronizer)
 				{
-					resultValue = _jsContext.InvokeMethod(functionName, new OriginalArguments(_jsContext, processedArgs));
+					resultValue = _jsContext.InvokeMethod(functionKeyName,
+						new OriginalArguments(_jsContext, processedArgs));
 				}
 			}
 			catch (OriginalException e)
@@ -515,12 +517,13 @@ namespace JavaScriptEngineSwitcher.Yantra
 		private OriginalValue InnerGetVariableValueWithoutResultConversion(string variableName)
 		{
 			OriginalValue variableValue;
+			OriginalKeyString variableKeyName = variableName.ToKeyString();
 
 			try
 			{
 				lock (_executionSynchronizer)
 				{
-					variableValue = _jsContext[variableName];
+					variableValue = _jsContext[variableKeyName];
 				}
 			}
 			catch (OriginalException e)
@@ -625,10 +628,11 @@ namespace JavaScriptEngineSwitcher.Yantra
 			try
 			{
 				OriginalValue variableValue;
+				OriginalKeyString variableKeyName = variableName.ToKeyString();
 
 				lock (_executionSynchronizer)
 				{
-					variableValue = _jsContext[variableName];
+					variableValue = _jsContext[variableKeyName];
 				}
 
 				result = !variableValue.IsUndefined;
@@ -659,13 +663,14 @@ namespace JavaScriptEngineSwitcher.Yantra
 
 		protected override void InnerSetVariableValue(string variableName, object value)
 		{
+			OriginalKeyString variableKeyName = variableName.ToKeyString();
 			OriginalValue processedValue = MapToScriptType(value);
 
 			try
 			{
 				lock (_executionSynchronizer)
 				{
-					_jsContext[variableName] = processedValue;
+					_jsContext[variableKeyName] = processedValue;
 				}
 			}
 			catch (OriginalException e)
@@ -676,11 +681,13 @@ namespace JavaScriptEngineSwitcher.Yantra
 
 		protected override void InnerRemoveVariable(string variableName)
 		{
+			OriginalKeyString variableKeyName = variableName.ToKeyString();
+
 			try
 			{
 				lock (_executionSynchronizer)
 				{
-					_jsContext.Delete(variableName);
+					_jsContext.Delete(variableKeyName);
 				}
 			}
 			catch (OriginalException e)
@@ -691,7 +698,9 @@ namespace JavaScriptEngineSwitcher.Yantra
 
 		protected override void InnerEmbedHostObject(string itemName, object value)
 		{
+			OriginalKeyString itemKeyName = itemName.ToKeyString();
 			OriginalValue processedValue;
+
 			if (value is Delegate)
 			{
 				processedValue = CreateEmbeddedFunction((Delegate)value);
@@ -705,8 +714,7 @@ namespace JavaScriptEngineSwitcher.Yantra
 			{
 				lock (_executionSynchronizer)
 				{
-					_jsContext[itemName] = processedValue;
-
+					_jsContext[itemKeyName] = processedValue;
 				}
 			}
 			catch (OriginalException e)
@@ -717,13 +725,14 @@ namespace JavaScriptEngineSwitcher.Yantra
 
 		protected override void InnerEmbedHostType(string itemName, Type type)
 		{
+			OriginalKeyString itemKeyName = itemName.ToKeyString();
 			OriginalValue processedValue = OriginalClrType.From(type);
 
 			try
 			{
 				lock (_executionSynchronizer)
 				{
-					_jsContext[itemName] = processedValue;
+					_jsContext[itemKeyName] = processedValue;
 				}
 			}
 			catch (OriginalException e)
