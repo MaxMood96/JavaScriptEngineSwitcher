@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v3.34.0 - April 19, 2026
+ * In JavaScriptEngineSwitcher.Jint:
+   * Jint was updated to version 4.8.0
+   * In configuration settings of the Jint JS engine was added two new properties: `CompileRegex` (default `false`) and `DebuggerExceptionThrownCallback` (default `null`)
+ * In JavaScriptEngineSwitcher.Yantra added support for the YantraJS version 1.2.334
+
 ## v3.33.1 - March 12, 2026
  * In JavaScriptEngineSwitcher.Jint added support for the Jint version 4.6.3
  * In JavaScriptEngineSwitcher.Yantra added support for the YantraJS version 1.2.314
