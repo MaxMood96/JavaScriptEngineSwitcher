@@ -19,7 +19,7 @@
    =============
    1. Jint was updated to version 4.11.0;
    2. In configuration settings of the Jint JS engine was added one new property -
-      `RetainFunctionSourceText` (default `false`).
+      `RetainFunctionSourceText` (default `true`).
 
    =============
    DOCUMENTATION

@@ -235,7 +235,7 @@ namespace JavaScriptEngineSwitcher.Jint
 			MaxStatements = 0;
 			MemoryLimit = 0;
 			RegexTimeoutInterval = null;
-			RetainFunctionSourceText = false;
+			RetainFunctionSourceText = true;
 			StrictMode = false;
 			TimeoutInterval = TimeSpan.Zero;
 		}
