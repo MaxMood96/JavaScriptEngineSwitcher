@@ -173,6 +173,20 @@ namespace JavaScriptEngineSwitcher.Jint
 		}
 
 		/// <summary>
+		/// Gets or sets a flag for whether to retain the full source text of parsed functions
+		/// </summary>
+		/// <remarks>
+		/// When this property is set to <c>true</c>, <c>Function.prototype.toString()</c> returns the original source;
+		/// otherwise, <c>toString()</c> returns a <c>function name() { [native code] }</c> placeholder and the script
+		/// source is not kept in memory.
+		/// </remarks>
+		public bool RetainFunctionSourceText
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a flag for whether to allow run the script in strict mode
 		/// </summary>
 		public bool StrictMode
@@ -221,6 +235,7 @@ namespace JavaScriptEngineSwitcher.Jint
 			MaxStatements = 0;
 			MemoryLimit = 0;
 			RegexTimeoutInterval = null;
+			RetainFunctionSourceText = false;
 			StrictMode = false;
 			TimeoutInterval = TimeSpan.Zero;
 		}

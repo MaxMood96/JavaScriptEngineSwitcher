@@ -59,7 +59,7 @@ namespace JavaScriptEngineSwitcher.Jint
 		/// <summary>
 		/// Version of original JS engine
 		/// </summary>
-		private const string EngineVersion = "4.10.1";
+		private const string EngineVersion = "4.11.0";
 
 		/// <summary>
 		/// Jint JS engine
@@ -152,6 +152,7 @@ namespace JavaScriptEngineSwitcher.Jint
 						.MaxArraySize(jintSettings.MaxArraySize)
 						.MaxJsonParseDepth(jintSettings.MaxJsonParseDepth)
 						.MaxStatements(jintSettings.MaxStatements)
+						.RetainFunctionSourceText(jintSettings.RetainFunctionSourceText)
 						.Strict(jintSettings.StrictMode)
 						.TimeoutInterval(jintSettings.TimeoutInterval)
 						;
@@ -170,7 +171,8 @@ namespace JavaScriptEngineSwitcher.Jint
 					ParsingOptions = new OriginalParsingOptions
 					{
 						CompileRegex = settings.CompileRegex,
-						RegexTimeout = settings.RegexTimeoutInterval
+						RegexTimeout = settings.RegexTimeoutInterval,
+						RetainFunctionSourceText = jintSettings.RetainFunctionSourceText
 					}
 				};
 				_cancellationConstraint = _jsEngine.Constraints.Find<OriginalCancellationConstraint>();

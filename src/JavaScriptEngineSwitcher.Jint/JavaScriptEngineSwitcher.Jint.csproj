@@ -22,11 +22,12 @@
     <PackageIconFullPath>../../Icons/JavaScriptEngineSwitcher_Jint_Logo128x128.png</PackageIconFullPath>
     <Description>JavaScriptEngineSwitcher.Jint contains a `JintJsEngine` adapter (wrapper for the Jint).</Description>
     <PackageTags>$(PackageCommonTags);Jint</PackageTags>
-    <PackageReleaseNotes>Jint was updated to version 4.10.1.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Jint was updated to version 4.11.0;
+2. In configuration settings of the Jint JS engine was added one new property - `RetainFunctionSourceText` (default `false`).</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Jint" Version="4.10.1" />
+    <PackageReference Include="Jint" Version="4.11.0" />
 
     <ProjectReference Include="../JavaScriptEngineSwitcher.Core/JavaScriptEngineSwitcher.Core.csproj" />
   </ItemGroup>
