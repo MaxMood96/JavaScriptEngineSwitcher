@@ -1047,5 +1047,34 @@ sleep(5000);";
 		}
 
 		#endregion
+
+		#region Miscellaneous
+
+		[Fact]
+		public virtual void GettingFunctionSourceText()
+		{
+			// Arrange
+			const string functionCode = "function square(num) {\n" +
+				"	return num * num;\n" +
+				"}"
+				;
+
+			const string input = "square.toString()";
+			const string targetOutput = functionCode;
+
+			// Act
+			string output;
+
+			using (var jsEngine = CreateJsEngine())
+			{
+				jsEngine.Execute(functionCode);
+				output = jsEngine.Evaluate<string>(input);
+			}
+
+			// Assert
+			Assert.Equal(targetOutput, output);
+		}
+
+		#endregion
 	}
 }

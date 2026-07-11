@@ -298,5 +298,34 @@ var foo = 'Browser's bar;";
 		#endregion
 
 		#endregion
+
+		#region Miscellaneous
+
+		[Fact]
+		public override void GettingFunctionSourceText()
+		{
+			// Arrange
+			const string functionCode = "function square(num) {\n" +
+				"	return num * num;\n" +
+				"}"
+				;
+
+			const string input = "square.toString()";
+			const string targetOutput = "function";
+
+			// Act
+			string output;
+
+			using (var jsEngine = CreateJsEngine())
+			{
+				jsEngine.Execute(functionCode);
+				output = jsEngine.Evaluate<string>(input);
+			}
+
+			// Assert
+			Assert.Equal(targetOutput, output);
+		}
+
+		#endregion
 	}
 }
