@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v3.35.0 - July 11, 2026
+ * In JavaScriptEngineSwitcher.Jint:
+   * Jint was updated to version 4.11.0
+   * In configuration settings of the Jint JS engine was added one new property - `RetainFunctionSourceText` (default `true`)
+ * In JavaScriptEngineSwitcher.Yantra added support for the YantraJS version 1.2.406
+
 ## v3.34.3 - June 17, 2026
  * In JavaScriptEngineSwitcher.Jint added support for the Jint version 4.10.0
  * In JavaScriptEngineSwitcher.Yantra added support for the YantraJS version 1.2.405
