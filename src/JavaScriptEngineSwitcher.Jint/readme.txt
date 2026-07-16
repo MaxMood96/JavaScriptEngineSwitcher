@@ -12,14 +12,12 @@
    DESCRIPTION
    ===========
    JavaScriptEngineSwitcher.Jint contains a `JintJsEngine` adapter (wrapper for the
-   Jint (http://github.com/sebastienros/jint) version 4.11.0).
+   Jint (http://github.com/sebastienros/jint) version 4.13.0).
 
    =============
    RELEASE NOTES
    =============
-   1. Jint was updated to version 4.11.0;
-   2. In configuration settings of the Jint JS engine was added one new property -
-      `RetainFunctionSourceText` (default `true`).
+   Jint was updated to version 4.13.0.
 
    =============
    DOCUMENTATION
